@@ -1,4 +1,4 @@
-"""Cleaner plot: rate-based projections for саша, actual data for я."""
+"""Cleaner plot: rate-based projections for dymovaleksandra, actual data for Lib0n."""
 
 import json
 from pathlib import Path
@@ -43,7 +43,7 @@ my_total = my_cy[-1]
 my_days_active = (TODAY - MY_START).days + 1
 my_rate = my_total / my_days_active
 
-# саша at MY_START
+# dymovaleksandra at MY_START
 friend_at_mystart = 0
 for d, c in zip(fr_cx, fr_cy):
     if d < MY_START:
@@ -56,9 +56,9 @@ friend_days_before = (MY_START - FRIEND_FIRST).days
 friend_rate_before = friend_at_mystart / friend_days_before
 friend_rate_after = (friend_total - friend_at_mystart) / my_days_active
 
-print(f"я: {my_total} over {my_days_active} days = {my_rate:.1f}/day")
-print(f"саша before я: 0 → {friend_at_mystart} over {friend_days_before} days = {friend_rate_before:.1f}/day")
-print(f"саша after я:  {friend_at_mystart} → {friend_total} over {my_days_active} days = {friend_rate_after:.1f}/day")
+print(f"Lib0n: {my_total} over {my_days_active} days = {my_rate:.1f}/day")
+print(f"dymovaleksandra before Lib0n: 0 → {friend_at_mystart} over {friend_days_before} days = {friend_rate_before:.1f}/day")
+print(f"dymovaleksandra after Lib0n:  {friend_at_mystart} → {friend_total} over {my_days_active} days = {friend_rate_after:.1f}/day")
 
 # --- Build rate-based line segments ---
 
@@ -75,7 +75,7 @@ PROJECTION_DAYS = 700
 proj_end = TODAY + timedelta(days=PROJECTION_DAYS)
 proj_range = [TODAY + timedelta(days=i) for i in range(PROJECTION_DAYS + 1)]
 
-# саша: two projections from TODAY
+# dymovaleksandra: two projections from TODAY
 fr_proj_before_y = [friend_total + friend_rate_before * i for i in range(PROJECTION_DAYS + 1)]
 fr_proj_after_y = [friend_total + friend_rate_after * i for i in range(PROJECTION_DAYS + 1)]
 
@@ -104,21 +104,21 @@ PROJ_ME = "#7fb8e0"
 
 # Pre-start rate line (actual + projection continuation)
 ax.plot(pre_dates, pre_ys, color=FRIEND_PRE, linewidth=2.5,
-        label=f"саша pre-start pace ({friend_rate_before:.0f}/day)")
+        label=f"dymovaleksandra pre-start pace ({friend_rate_before:.0f}/day)")
 # Its projection extending from today (no separate legend)
 ax.plot(proj_range, fr_proj_before_y, color=FRIEND_PRE, linewidth=2,
         linestyle="--")
 
 # Post-start rate line (actual)
 ax.plot(post_dates, post_ys, color=FRIEND_POST, linewidth=2.8,
-        label=f"саша post-start pace ({friend_rate_after:.0f}/day)")
+        label=f"dymovaleksandra post-start pace ({friend_rate_after:.0f}/day)")
 # Its projection (no separate legend)
 ax.plot(proj_range, fr_proj_after_y, color=FRIEND_POST, linewidth=2,
         linestyle="--")
 
 # Me: actual (solid, thick) + projection (dashed)
 ax.plot(my_cx, my_cy, color=ME_COLOR, linewidth=3,
-        label=f"тима pace ({my_rate:.0f}/day)", zorder=5)
+        label=f"Lib0n pace ({my_rate:.0f}/day)", zorder=5)
 ax.plot(proj_range, my_proj_y, color=PROJ_ME, linewidth=2,
         linestyle="--")
 
@@ -145,7 +145,7 @@ ax.set_ylim(bottom=-1000)
 ymin, ymax = ax.get_ylim()
 
 ax.text(MY_START + timedelta(days=8), ymax * 0.92,
-        "тима started scrobbling\n(2026-04-07)",
+        "Lib0n started scrobbling\n(2026-04-07)",
         fontsize=10.5, color="#222", fontweight="bold",
         bbox=dict(boxstyle="round,pad=0.4", facecolor="white",
                   edgecolor="#555", alpha=0.95))
@@ -169,7 +169,7 @@ for cross_date, cross_y in [cross_before, cross_after]:
 # If recent-rate crossover never happens, annotate that
 if cross_after[0] is None:
     ax.annotate(
-        "тима never catches up\nat саша's post-start rate",
+        "Lib0n never catches up\nat dymovaleksandra's post-start rate",
         xy=(proj_end, fr_proj_after_y[-1]),
         xytext=(-220, -30), textcoords="offset points",
         fontsize=10, color=FRIEND_POST, fontweight="bold",
@@ -179,7 +179,7 @@ if cross_after[0] is None:
 # Styling
 ax.set_xlabel("Date", fontsize=11)
 ax.set_ylabel("Cumulative scrobbles", fontsize=11)
-ax.set_title("тима vs саша — scrobble rates and projections", fontsize=14, pad=15)
+ax.set_title("Lib0n vs dymovaleksandra — scrobble rates and projections", fontsize=14, pad=15)
 ax.grid(True, alpha=0.3)
 ax.legend(loc="lower right", fontsize=10, framealpha=0.95)
 ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))

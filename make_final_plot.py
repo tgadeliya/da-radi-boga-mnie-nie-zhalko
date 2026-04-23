@@ -104,7 +104,7 @@ PROJ_FRIEND_AFTER = "#8b0000"    # darker red
 PROJ_ME = "#7fb8e0"              # lighter blue
 
 # --- LEFT PANEL: friend's early history ---
-axL.plot(fr_cx, fr_cy, color=FRIEND_COLOR, linewidth=2, label="саша (friend)")
+axL.plot(fr_cx, fr_cy, color=FRIEND_COLOR, linewidth=2, label="dymovaleksandra (friend)")
 axL.set_xlim(LEFT_START, LEFT_END)
 axL.xaxis.set_major_locator(mdates.MonthLocator())
 axL.xaxis.set_major_formatter(mdates.DateFormatter("%b\n%Y"))
@@ -112,16 +112,16 @@ axL.grid(True, alpha=0.3)
 
 # --- RIGHT PANEL: comparison zone + projections ---
 # Actual data (solid, thick)
-axR.plot(fr_cx, fr_cy, color=FRIEND_COLOR, linewidth=3, label="саша (friend) — actual", zorder=4)
-axR.plot(my_cx, my_cy, color=ME_COLOR, linewidth=3, label="я (me) — actual", zorder=4)
+axR.plot(fr_cx, fr_cy, color=FRIEND_COLOR, linewidth=3, label="dymovaleksandra (friend) — actual", zorder=4)
+axR.plot(my_cx, my_cy, color=ME_COLOR, linewidth=3, label="Lib0n (me) — actual", zorder=4)
 
 # Projections (dashed)
 axR.plot(proj_dates, fr_proj_after_y, color=PROJ_FRIEND_AFTER, linewidth=1.8,
-         linestyle="--", label=f"саша projection — recent rate ({friend_rate_after:.0f}/day)")
+         linestyle="--", label=f"dymovaleksandra projection — recent rate ({friend_rate_after:.0f}/day)")
 axR.plot(proj_dates, fr_proj_before_y, color=PROJ_FRIEND_BEFORE, linewidth=1.8,
-         linestyle="--", label=f"саша projection — pre-я rate ({friend_rate_before:.0f}/day)")
+         linestyle="--", label=f"dymovaleksandra projection — pre-Lib0n rate ({friend_rate_before:.0f}/day)")
 axR.plot(proj_dates, my_proj_y, color=PROJ_ME, linewidth=1.8,
-         linestyle="--", label=f"я projection — current rate ({my_rate:.0f}/day)")
+         linestyle="--", label=f"Lib0n projection — current rate ({my_rate:.0f}/day)")
 
 # Vertical line at my start
 axR.axvline(MY_START, color="#555", linestyle=":", linewidth=1.8, alpha=0.9, zorder=3)
@@ -135,7 +135,7 @@ axR.xaxis.set_major_formatter(mdates.DateFormatter("%b\n%Y"))
 axR.grid(True, alpha=0.3)
 axR.legend(loc="lower right", fontsize=10, framealpha=0.95)
 
-# Find crossover points in projections (where я line crosses саша lines)
+# Find crossover points in projections (where я line crosses dymovaleksandra lines)
 def find_crossover(me_ys, friend_ys, dates):
     for i in range(1, len(me_ys)):
         if me_ys[i] >= friend_ys[i] and me_ys[i-1] < friend_ys[i-1]:
@@ -173,7 +173,7 @@ axR.plot((-d_r, +d_r), (-d, +d), **kwargs)
 axR.plot((-d_r, +d_r), (1 - d, 1 + d), **kwargs)
 
 # --- Title and final touches ---
-fig.suptitle("я vs саша — cumulative scrobbles with projections",
+fig.suptitle("Lib0n vs dymovaleksandra — cumulative scrobbles with projections",
              fontsize=14, y=0.98)
 
 # Format y-axis with commas
@@ -184,7 +184,7 @@ for ax in (axL, axR):
 ymin, ymax = axR.get_ylim()
 label_y = ymax * 0.92
 axR.text(MY_START + timedelta(days=5), label_y,
-         "я started scrobbling\n(2026-04-07)",
+         "Lib0n started scrobbling\n(2026-04-07)",
          fontsize=10, color="#333", fontweight="bold",
          bbox=dict(boxstyle="round,pad=0.4", facecolor="white",
                    edgecolor="#555", alpha=0.9))
@@ -200,11 +200,11 @@ print("\nSaved plot_final.png")
 
 # Print projections
 print(f"\nProjection analysis:")
-print(f"  я current: {my_total:,} @ {my_rate:.1f}/day")
-print(f"  саша current: {friend_total:,}")
-print(f"  саша pre-я rate: {friend_rate_before:.1f}/day")
-print(f"  саша recent rate: {friend_rate_after:.1f}/day")
-for label, cross in [("vs pre-я rate", cross1), ("vs recent rate", cross2)]:
+print(f"  Lib0n current: {my_total:,} @ {my_rate:.1f}/day")
+print(f"  dymovaleksandra current: {friend_total:,}")
+print(f"  dymovaleksandra pre-Lib0n rate: {friend_rate_before:.1f}/day")
+print(f"  dymovaleksandra recent rate: {friend_rate_after:.1f}/day")
+for label, cross in [("vs pre-Lib0n rate", cross1), ("vs recent rate", cross2)]:
     if cross[0] is None:
         gap_at_end = fr_proj_after_y[-1] - my_proj_y[-1] if "recent" in label else fr_proj_before_y[-1] - my_proj_y[-1]
         print(f"  Crossover {label}: never (gap at {PROJECTION_DAYS}d: {gap_at_end:,.0f})")
