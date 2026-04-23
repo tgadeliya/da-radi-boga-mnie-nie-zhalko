@@ -156,33 +156,40 @@ def daily_scrobbles_by_day(username, since_dt):
 # ---------------------------------------------------------------------------
 
 def main():
-    if not API_KEY:
-        print("ERROR: LASTFM_API_KEY not set. Add it to .env or export it.")
-        sys.exit(1)
+    force = "--force" in sys.argv
 
-    print("Fetching account info…\n")
-    me = get_user_info(MY_USER)
-    friend = get_user_info(FRIEND_USER)
+    if DATA_FILE.exists() and not force:
+        print(f"Scrobble data already exists at {DATA_FILE}")
+        print("Skipping API fetch. Use --force to re-fetch.")
+        return
+    else:
+        if not API_KEY:
+            print("ERROR: LASTFM_API_KEY not set. Add it to .env or export it.")
+            sys.exit(1)
 
-    print(f"  {me['name']}: {me['playcount']:,} scrobbles "
-          f"(registered {me['registered'].date()})")
-    print(f"  {friend['name']}: {friend['playcount']:,} scrobbles "
-          f"(registered {friend['registered'].date()})")
-    print()
+        print("Fetching account info…\n")
+        me = get_user_info(MY_USER)
+        friend = get_user_info(FRIEND_USER)
 
-    # --- Fetch ALL scrobbles for both users and save to JSON ---
-    print(f"Fetching ALL scrobbles for {MY_USER}…")
-    my_dates = fetch_all_scrobbles(MY_USER)
-    print(f"  → {len(my_dates)} scrobbles\n")
+        print(f"  {me['name']}: {me['playcount']:,} scrobbles "
+              f"(registered {me['registered'].date()})")
+        print(f"  {friend['name']}: {friend['playcount']:,} scrobbles "
+              f"(registered {friend['registered'].date()})")
+        print()
 
-    print(f"Fetching ALL scrobbles for {FRIEND_USER}…")
-    friend_dates = fetch_all_scrobbles(FRIEND_USER)
-    print(f"  → {len(friend_dates)} scrobbles\n")
+        # --- Fetch ALL scrobbles for both users and save to JSON ---
+        print(f"Fetching ALL scrobbles for {MY_USER}…")
+        my_dates = fetch_all_scrobbles(MY_USER)
+        print(f"  → {len(my_dates)} scrobbles\n")
 
-    data_out = {MY_USER: my_dates, FRIEND_USER: friend_dates}
-    with open(DATA_FILE, "w") as f:
-        json.dump(data_out, f)
-    print(f"Saved scrobble data to {DATA_FILE}\n")
+        print(f"Fetching ALL scrobbles for {FRIEND_USER}…")
+        friend_dates = fetch_all_scrobbles(FRIEND_USER)
+        print(f"  → {len(friend_dates)} scrobbles\n")
+
+        data_out = {MY_USER: my_dates, FRIEND_USER: friend_dates}
+        with open(DATA_FILE, "w") as f:
+            json.dump(data_out, f)
+        print(f"Saved scrobble data to {DATA_FILE}\n")
 
     # --- Text analysis ---
     now = datetime.now(timezone.utc)
