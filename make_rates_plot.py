@@ -1,6 +1,7 @@
 """Cleaner plot: rate-based projections for саша, actual data for я."""
 
 import json
+from pathlib import Path
 from datetime import date, timedelta
 from collections import Counter
 
@@ -9,7 +10,9 @@ import matplotlib.dates as mdates
 
 plt.rcParams["font.family"] = "DejaVu Sans"
 
-with open("/home/claude/lastfm/scrobble_data.json") as f:
+BASE_DIR = Path(__file__).parent
+
+with open(BASE_DIR / "scrobble_data.json") as f:
     data = json.load(f)
 
 my_dates = [date.fromisoformat(d) for d in data["Lib0n"]]
@@ -184,7 +187,7 @@ ax.xaxis.set_major_formatter(mdates.DateFormatter("%b\n%Y"))
 ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{int(x):,}"))
 
 plt.tight_layout()
-plt.savefig("/home/claude/lastfm/plot_rates.png", dpi=140, bbox_inches="tight")
+plt.savefig(BASE_DIR / "plot_rates.png", dpi=140, bbox_inches="tight")
 print("\nSaved plot_rates.png")
 
 print(f"\nCrossovers:")

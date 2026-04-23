@@ -1,6 +1,7 @@
 """Generate the refined plot with broken axis, Russian labels, and projections."""
 
 import json
+from pathlib import Path
 from datetime import date, datetime, timedelta
 from collections import Counter
 
@@ -11,7 +12,9 @@ from matplotlib.patches import ConnectionPatch
 # Ensure Cyrillic renders
 plt.rcParams["font.family"] = "DejaVu Sans"
 
-with open("/home/claude/lastfm/scrobble_data.json") as f:
+BASE_DIR = Path(__file__).parent
+
+with open(BASE_DIR / "scrobble_data.json") as f:
     data = json.load(f)
 
 my_dates = [date.fromisoformat(d) for d in data["Lib0n"]]
@@ -106,7 +109,6 @@ axL.set_xlim(LEFT_START, LEFT_END)
 axL.xaxis.set_major_locator(mdates.MonthLocator())
 axL.xaxis.set_major_formatter(mdates.DateFormatter("%b\n%Y"))
 axL.grid(True, alpha=0.3)
-axL.set_ylabel("Cumulative scrobbles", fontsize=11)
 
 # --- RIGHT PANEL: comparison zone + projections ---
 # Actual data (solid, thick)
@@ -190,10 +192,10 @@ axR.text(TODAY + timedelta(days=5), ymax * 0.05,
          "today", fontsize=9, color="#666", style="italic")
 
 # Shared x-axis label
-fig.text(0.5, 0.02, "Date", ha="center", fontsize=11)
+# fig.text(0.5, 0.02, "Date", ha="center", fontsize=11)
 
 plt.tight_layout(rect=[0, 0.03, 1, 0.96])
-plt.savefig("/home/claude/lastfm/plot_final.png", dpi=140, bbox_inches="tight")
+plt.savefig(BASE_DIR / "plot_final.png", dpi=140, bbox_inches="tight")
 print("\nSaved plot_final.png")
 
 # Print projections
