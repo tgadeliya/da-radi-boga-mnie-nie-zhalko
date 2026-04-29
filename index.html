@@ -137,6 +137,15 @@
     border: 1px solid var(--ink);
   }
 
+  .updated {
+    margin-top: 32px;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-align: right;
+  }
+
   @media (max-width: 640px) {
     body { padding: 20px 12px; }
     .frame { padding: 32px 22px; }
@@ -162,15 +171,17 @@
 
     <div class="verdict">
       <div class="verdict-text">
-        With the current pace of <span class="rate">71/day</span>
-        and саша scrobbling at <span class="rate">86/day</span>,<br>
-        you won't catch her.
+        With the current pace of <span class="rate"><!-- MY_RATE -->85<!-- /MY_RATE -->/day</span>
+        and саша scrobbling at <span class="rate"><!-- FRIEND_RATE -->82<!-- /FRIEND_RATE -->/day</span>,<br>
+        <!-- VERDICT_MSG -->you'll catch her around October 2039.<!-- /VERDICT_MSG -->
       </div>
     </div>
 
     <div class="cat-wrap">
       <img src="crying_cat.png" alt="">
     </div>
+
+    <p class="updated">last updated: <!-- UPDATED_DATE -->2026-04-29<!-- /UPDATED_DATE --></p>
 
   </div>
 </body>
