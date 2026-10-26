@@ -20,11 +20,17 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Fetch new scrobbles and regenerate plots
+      - name: Run tests
+        run: uv run python -m unittest discover -s tests
+
+      # The first run (no data/ folder yet) downloads both full histories, ~2-4 minutes.
+      - name: Fetch new scrobbles and rebuild the page
         env:
           LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
           MY_USER: Lib0n
           FRIEND_USER: dymovaleksandra
+          MY_NAME: Tsimur
+          FRIEND_NAME: Sasha
           MPLBACKEND: Agg   # headless matplotlib — no display needed
         run: uv run python update_data.py
 
@@ -32,7 +38,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add scrobble_data.json plot_final.png plot_rates.png index.html
+          git add data index.html season2_chart.png
           git diff --staged --quiet || \
             git commit -m "chore: daily data update $(date -u +%Y-%m-%d)" && \
             git push

@@ -1,7 +1,7 @@
 [project]
 name = "da-radi-boga-mnie-nie-zhalko"
 version = "0.1.0"
-description = "Add your description here"
+description = "Last.fm games for two: who scrobbles more (season 1), who shapes whose taste (season 2)"
 readme = "README.md"
 requires-python = ">=3.13.3"
 dependencies = [
