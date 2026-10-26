@@ -273,7 +273,7 @@ def render(by_user, now):
         score_rows="".join(rows),
         verdict=verdict,
         cat=cat,
-        chart=CHART_FILE,
+        chart=f"{CHART_FILE}?v={local(now):%Y%m%d%H%M}",  # new URL each build, so browsers don't show a cached chart
         conv_lines="".join(conv_lines),
         conv_rows=conv_rows,
         echo_lines="".join(echo_lines),

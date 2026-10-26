@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write           # needed to push the updated data and plots back
 
+concurrency:
+  group: daily-update       # a manual run and the scheduled run never push at the same time
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -38,7 +42,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data index.html season2_chart.png
+          git add index.html
+          if [ -d data ]; then git add data; fi
+          if [ -f season2_chart.png ]; then git add season2_chart.png; fi
           git diff --staged --quiet || \
             git commit -m "chore: daily data update $(date -u +%Y-%m-%d)" && \
             git push
