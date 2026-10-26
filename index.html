@@ -8,13 +8,10 @@
   :root {
     --orange: #FF6600;
     --cream: #FFF8E7;
-    --red: #CC0000;
     --ink: #111111;
     --muted: #666;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     background: var(--cream);
     font-family: Verdana, Arial, sans-serif;
@@ -23,166 +20,99 @@
     line-height: 1.6;
     padding: 40px 20px;
   }
-
   .frame {
-    max-width: 820px;
+    max-width: 860px;
     margin: 0 auto;
-    background: var(--cream);
     border: 3px solid var(--ink);
     padding: 48px 56px;
     position: relative;
   }
-
-  /* tiny orange corner ticks */
   .frame::before, .frame::after {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background: var(--orange);
+    content: ""; position: absolute; width: 14px; height: 14px; background: var(--orange);
   }
   .frame::before { top: -3px; left: -3px; }
-  .frame::after  { bottom: -3px; right: -3px; }
-
+  .frame::after { bottom: -3px; right: -3px; }
   .kicker {
-    font-family: "Courier New", monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--orange);
-    text-transform: uppercase;
-    margin-bottom: 12px;
+    font-family: "Courier New", monospace; font-size: 11px; letter-spacing: 2px;
+    color: var(--orange); text-transform: uppercase; margin-bottom: 12px;
   }
-
-  h1 {
-    font-size: 42px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    line-height: 1.1;
-    margin-bottom: 12px;
-  }
-
+  h1 { font-size: 42px; letter-spacing: 1px; line-height: 1.1; margin-bottom: 12px; }
   .tagline {
-    font-size: 13px;
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    font-size: 13px; color: var(--muted); font-style: italic;
+    margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,.15);
   }
-
-  /* --- plot card: retro style with gray header --- */
-  .card {
-    background: #ffffff;
-    border: 1px solid var(--ink);
-    margin-bottom: 40px;
-  }
-
+  .card { background: #fff; border: 1px solid var(--ink); margin-bottom: 32px; }
   .card-header {
-    background: #dddddd;
-    border-bottom: 1px solid var(--ink);
-    padding: 6px 12px;
-    font-weight: bold;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .card-body {
-    padding: 14px;
+    background: #ddd; border-bottom: 1px solid var(--ink); padding: 6px 12px;
+    font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
     text-align: center;
   }
-
-  .card-body img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    border: 1px solid var(--ink);
+  .card-body { padding: 16px 18px; }
+  .card-body img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .rule { color: var(--muted); font-size: 11px; margin-bottom: 10px; }
+  ul.facts { list-style: none; margin-bottom: 14px; }
+  ul.facts li { margin-bottom: 4px; }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { padding: 4px 6px; text-align: left; vertical-align: top; }
+  tr + tr td { border-top: 1px solid #eee; }
+  .list th { font-size: 10px; text-transform: uppercase; color: var(--muted); font-weight: normal; }
+  .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .empty, .muted { color: var(--muted); }
+  .empty { text-align: center; font-style: italic; padding: 12px; }
+  .nowrap { white-space: nowrap; }
+  .sw {
+    display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+    margin-right: 4px; vertical-align: 0;
   }
-
-  /* --- the big verdict block, matching the screenshot --- */
+  .score th, .score td { padding: 10px 8px; }
+  .score thead th { text-align: right; font-size: 13px; }
+  .score tbody th { font-size: 15px; }
+  .score tbody th small { display: block; font-size: 11px; font-weight: normal; color: var(--muted); }
+  .score td.num { font-size: 30px; font-weight: bold; color: #bbb; width: 120px; }
+  .score td.num.lead { color: var(--ink); }
   .verdict {
-    text-align: center;
-    margin: 40px 0 36px;
-    padding: 28px 16px;
-    border-top: 3px solid var(--ink);
-    border-bottom: 3px solid var(--ink);
-    background: var(--cream);
+    text-align: center; margin: 8px 0 32px; padding: 20px 16px;
+    border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+    font-size: 26px; font-weight: bold;
   }
-
-  .verdict-text {
-    font-family: Verdana, Arial, sans-serif;
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--ink);
-    line-height: 1.4;
-    letter-spacing: 0.3px;
+  .verdict img { display: block; margin: 16px auto 0; max-width: 260px; width: 100%; border: 1px solid var(--ink); }
+  .tiles { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .tile {
+    border-left: 4px solid; border-radius: 3px; padding: 4px 8px 3px;
+    font-weight: bold; line-height: 1.3;
   }
-
-  .verdict-text .rate {
-    color: var(--red);
-    background: #ffffff;
-    padding: 0 6px;
-    white-space: nowrap;
-  }
-
-  .cat-wrap {
-    text-align: center;
-  }
-
-  .cat-wrap img {
-    max-width: 380px;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--ink);
-  }
-
+  .tile small { display: block; font-weight: normal; font-size: 10px; color: #333; }
+  details { margin-top: 8px; }
+  summary { cursor: pointer; font-weight: bold; }
+  details p { margin-top: 8px; }
   .updated {
-    margin-top: 32px;
-    font-family: "Courier New", monospace;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 1px;
-    text-align: right;
+    margin-top: 24px; font-family: "Courier New", monospace; font-size: 10px;
+    color: var(--muted); letter-spacing: 1px; text-align: right;
   }
-
   @media (max-width: 640px) {
-    body { padding: 20px 12px; }
-    .frame { padding: 32px 22px; }
+    body { padding: 16px 10px; }
+    .frame { padding: 28px 16px; }
     h1 { font-size: 30px; }
-    .verdict-text { font-size: 20px; }
+    .verdict { font-size: 20px; }
+    .score td.num { font-size: 22px; width: 60px; }
   }
+  .scroll { overflow-x: auto; }
 </style>
 </head>
 <body>
-  <div class="frame">
-
-    <h1>да ради Бога</h1>
-    <h1>мне не жалко</h1>
-
-    <div class="tagline"></div>
-
-    <div class="card">
-      <div class="card-header" align="center">::  SCROBBLE RACE  ::</div>
-      <div class="card-body">
-        <img src="plot_rates.png" alt="Cumulative scrobble rates with projections">
-      </div>
+<div class="frame">
+  <div class="kicker">season 2 · who shapes whose taste</div>
+  <h1>да ради Бога</h1>
+  <h1>мне не жалко</h1>
+  <div class="tagline">Season 2 starts with the next daily update: the bot is downloading both full histories.</div>
+  <div class="card">
+    <div class="card-header">::  season 1 archive · scrobble race  ::</div>
+    <div class="card-body">
+      <p style="margin-bottom:12px">Tsimur started scrobbling on 7 Apr 2026, 16,567 scrobbles behind. At 112 a day against Sasha's 29, Tsimur caught up on <b>22 Oct 2026</b>.</p>
+      <img src="season1/season1_final.png" alt="Season 1: cumulative scrobbles until the crossover">
+      <div class="verdict" style="border:0;margin:16px 0 0"><img src="happy_cat.gif" alt=""></div>
     </div>
-
-    <div class="verdict">
-      <div class="verdict-text">
-        With the current pace of <span class="rate"><!-- MY_RATE -->112<!-- /MY_RATE -->/day</span>
-        and саша scrobbling at <span class="rate"><!-- FRIEND_RATE -->29<!-- /FRIEND_RATE -->/day</span>,<br>
-        <!-- VERDICT_MSG -->you'll catch her around October 2026.<!-- /VERDICT_MSG -->
-      </div>
-    </div>
-
-    <div class="cat-wrap">
-      <img src="happy_cat.gif" alt="">
-    </div>
-
-    <p class="updated">last updated: <!-- UPDATED_DATE -->2026-10-26<!-- /UPDATED_DATE --></p>
-
   </div>
+</div>
 </body>
 </html>
